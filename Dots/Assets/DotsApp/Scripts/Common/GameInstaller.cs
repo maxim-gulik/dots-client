@@ -1,17 +1,14 @@
-using System;
 using Dots.Infra.AC;
 using Dots.Infra.Assets;
 using Dots.Infra.Utils;
 using UnityEngine;
 using Zenject;
 
-namespace Dots.Infra
+namespace DotsApp.Common
 {
-    [CreateAssetMenu(fileName = "AppFrameworkProjectInstaller", menuName = "Installers/AppFrameworkProject")]
-    public class AppFrameworkProjectInstaller : ScriptableObjectInstaller
+    [CreateAssetMenu(fileName = "GameInstaller", menuName = "Installers/GameInstaller")]
+    public class GameInstaller : ScriptableObjectInstaller
     {
-        [SerializeField] private RemoteAssetsSystem _assetsControlSystem;
-
         public override void InstallBindings()
         {
             Container.Bind<IMessageBus>().To<MessageBus>().AsSingle();
@@ -20,20 +17,16 @@ namespace Dots.Infra
             Container.Bind<ILoadSceneCommand>().To<LoadSceneCommand>().AsTransient();
             Container.Bind<IUnloadSceneCommand>().To<UnloadSceneCommand>().AsTransient();
 
+            Container.Bind<IAssetLoader>().To<AddressablesAssetLoader>().AsTransient();
+
+            Container.Bind<ICreateControllerCommand>().To<CreateControllerCommand>().AsTransient();
+            Container.Bind<IInstantiateActorCommand>().To<InstantiateActorCommand>().AsTransient();
+            Container.Bind<IGetActorCommand>().To<GetActorCommand>().AsTransient();
+
             Container.Bind(typeof(IApplicationSupport), typeof(IApplicationObserver), typeof(ICoroutineRunner))
                 .To<ApplicationSupport>()
                 .FromNewComponentOnNewGameObject()
                 .AsSingle();
-
-            if (_assetsControlSystem == RemoteAssetsSystem.Addressable)
-                Container.Bind<IAssetLoader>().To<AddressablesAssetLoader>().AsTransient();
-            else
-                throw new ApplicationException($"Undefined assets control system: {_assetsControlSystem}");
-        }
-
-        public enum RemoteAssetsSystem
-        {
-            Addressable
         }
     }
 }
