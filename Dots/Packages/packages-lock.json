@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "50a67d8f419b6cea0398eff6c19cf0bbe11ed609"
+    },
+    "com.mathijsbakker.extenject": {
+      "version": "file:Zenject",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "5.0.10",
       "depth": 0,
