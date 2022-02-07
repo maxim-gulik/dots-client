@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Dots.Infra.Utils
 {
-    public class ApplicationSupport : MonoBehaviour, IApplicationSupport, IApplicationObserver, IFramePulse, ICoroutineRunner
+    public class ApplicationSupport : MonoBehaviour, IApplicationSupport, IFramePulse
     {
         public event Action<bool> PauseEvent;
         public event Action QuitEvent;
@@ -37,6 +37,20 @@ namespace Dots.Infra.Utils
         public void Quit()
         {
             Application.Quit();
+        }
+
+        public Vector3 GetScreenPointerWorldPosition()
+        {
+            Vector3 poinerPos;
+            if (Input.touchSupported)
+            {
+                poinerPos = Input.touchCount > 0 ? Input.GetTouch(0).position : Vector2.zero;
+            }
+            else
+            {
+                poinerPos = Input.mousePosition;
+            }
+            return Camera.main.ScreenToWorldPoint(poinerPos);
         }
     }
 }

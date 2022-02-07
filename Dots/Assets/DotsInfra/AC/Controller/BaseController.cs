@@ -4,13 +4,16 @@ using Dots.Extras;
 
 namespace Dots.Infra.AC
 {
+    /// <summary>
+    /// Base class for all controllers (classes responsible for the business logic of a game)
+    /// Disposable and can be as an owner for a set of disposable instances
+    /// </summary>
     public abstract class BaseController : IController, IDisposableOwner
     {
         private readonly CancellationTokenSource _disposeTokeSource = new CancellationTokenSource();
         private readonly DisposablesContainer _disposablesContainer = new DisposablesContainer();
 
         public CancellationToken DisposeToken => _disposeTokeSource.Token;
-        public bool IsControllerDead => DisposeToken.IsCancellationRequested;
 
         public void Dispose()
         {

@@ -21,7 +21,7 @@
         </member>
         <member name="M:DG.DOTweenEditor.DOTweenEditorPreview.PrepareTweenForPreview(DG.Tweening.Tween,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
-            Readies the tween for editor preview by setting its UpdateType to Manual plus eventual extra settings.
+            Readies the tween for editor preview by setting its UpdateType to Manual plus eventual extra gridSettings.
             </summary>
             <param name="t">The tween to ready</param>
             <param name="clearCallbacks">If TRUE (recommended) removes all callbacks (OnComplete/Rewind/etc)</param>
@@ -39,7 +39,7 @@
         </member>
         <member name="M:DG.DOTweenEditor.EditorUtils.SetEditorTexture(UnityEngine.Texture2D,UnityEngine.FilterMode,System.Int32)">
             <summary>
-            Checks that the given editor texture use the correct import settings,
+            Checks that the given editor texture use the correct import gridSettings,
             and applies them if they're incorrect.
             </summary>
         </member>

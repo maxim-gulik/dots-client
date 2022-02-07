@@ -10,6 +10,10 @@ namespace Dots.Infra.AC
         TActor Execute<TActor>(string instanceId = default) where TActor : IActor;
     }
 
+    /// <summary>
+    /// Simple command to just getting registered actors.
+    /// The main goal is to wrap of using an DI-container and provide convenient testable api to get actors 
+    /// </summary>
     public class GetActorCommand : IGetActorCommand
     {
         private readonly DiContainer _container;

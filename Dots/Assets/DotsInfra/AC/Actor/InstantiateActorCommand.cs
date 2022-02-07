@@ -1,9 +1,4 @@
-﻿using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
-using Dots.Infra.Assets;
-using UnityEngine;
-using Zenject;
+﻿using Zenject;
 using Object = UnityEngine.Object;
 
 namespace Dots.Infra.AC
@@ -14,22 +9,19 @@ namespace Dots.Infra.AC
             where TActor : class, IActor;
         TActor Execute<TActor>(IActor parent, bool worldPositionStays, string instanceId = default)
             where TActor : class, IActor;
-        UniTask<TActor> ExecuteAsync<TActor>(string assetId, string assetGroup, CancellationToken token)
-            where TActor : class, IActor;
-        UniTask<TActor> ExecuteAsync<TActor>(string assetId, string assetGroup, IActor parent, bool worldPositionStays, CancellationToken token)
-            where TActor : class, IActor;
     }
 
+    /// <summary>
+    /// Simple command to just instantiating registered actors.
+    /// The main goal is to wrap of using an DI-container and provide convenient flexible testable api to instantiate actors
+    /// Potentially can be used as an provider for remote instances  
+    /// </summary>
     public class InstantiateActorCommand : IInstantiateActorCommand
     {
-        private readonly IAssetLoader _assetLoader;
         private readonly DiContainer _container;
 
-        public InstantiateActorCommand(
-            IAssetLoader assetLoader,
-            DiContainer diContainer)
+        public InstantiateActorCommand(DiContainer diContainer)
         {
-            _assetLoader = assetLoader;
             _container = diContainer;
         }
 
@@ -43,27 +35,6 @@ namespace Dots.Infra.AC
             return Object.Instantiate(actor.Transform.gameObject).GetComponent<TActor>();
         }
 
-        public async UniTask<TActor> ExecuteAsync<TActor>(string assetId, string assetGroup, CancellationToken token)
-            where TActor : class, IActor
-        {
-            var instanceType = _container.ResolveType<TActor>();
-
-            var handler = await _assetLoader.LoadAsync<GameObject>(assetId, assetGroup, token);
-            if (handler == null)
-            {
-                Debug.LogWarning($"Actor was not loaded. AssetId: {assetId}, AssetGroup: {assetGroup}, ActorType: {instanceType.Name}");
-                return null;
-            }
-
-            var actor = Object.Instantiate(handler.Asset).GetComponent(instanceType) as TActor;
-            if (actor == null)
-                throw new InvalidOperationException($"Couldn't find actor in the loaded gameobject. ActorType:{instanceType.Name}, AssetId:{assetId}, AssetGroup: {assetGroup}");
-
-            actor.AddOwnership(handler);
-
-            return actor;
-        }
-
         public TActor Execute<TActor>(IActor parent, bool worldPositionStays, string instanceId = default)
             where TActor : class, IActor
         {
@@ -71,17 +42,6 @@ namespace Dots.Infra.AC
 
             actor.SetParent(parent.Transform, worldPositionStays);
 
-            return actor;
-        }
-
-        public async UniTask<TActor> ExecuteAsync<TActor>(string assetId, string assetGroup, IActor parent, bool worldPositionStays, CancellationToken token)
-            where TActor : class, IActor
-        {
-            var actor = await ExecuteAsync<TActor>(assetId, assetGroup, token);
-            if (actor == null)
-                return null;
-
-            actor.SetParent(parent.Transform, worldPositionStays);
             return actor;
         }
     }

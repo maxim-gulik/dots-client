@@ -13,6 +13,10 @@ namespace Dots.Infra.AC
             where TParameters : class;
     }
 
+    /// <summary>
+    /// Base class for all controllers (classes responsible for the business logic of a game)
+    /// Disposable and can be as an owner for a set of disposable instances
+    /// </summary>
     public class CreateControllerCommand : ICreateControllerCommand
     {
         private readonly DiContainer _container;
