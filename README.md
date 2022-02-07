@@ -27,5 +27,6 @@ More info in the description of classes in the code
 
 # About game
 Endless game mode can be set up here
+
 ![image](https://user-images.githubusercontent.com/98963961/152803142-ffa40e8f-c799-4c42-a329-5fed41b0971b.png)
 
