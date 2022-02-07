@@ -9,6 +9,11 @@ namespace Dots.Infra.AC
         UniTask<TResult> GetResultAsync(CancellationToken token);
     }
 
+    /// <summary>
+    /// This controller has an special API allows to wait until the controller will return an result via ReturnControllerResult()
+    /// Contains a couple lifecycle methods in different stages of getting result flow
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
     public abstract class BaseControllerWithResult<TResult> : BaseController, IControllerWithResult<TResult>
     {
         private readonly UniTaskCompletionSource<TResult> _taskSource = new UniTaskCompletionSource<TResult>();
@@ -45,11 +50,11 @@ namespace Dots.Infra.AC
  
             if (ExecutionToken.IsCancellationRequested)
             {
-                Complete();
+                ReturnControllerResult();
             }
         }
 
-        protected void Complete(TResult result = default)
+        protected void ReturnControllerResult(TResult result = default)
         {
             if (!_taskSource.Task.Status.IsCompleted())
             {

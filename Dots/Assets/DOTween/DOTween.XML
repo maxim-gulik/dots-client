@@ -240,7 +240,7 @@
         <member name="M:DG.Tweening.Core.DOTweenUtils.GetPointOnCircle(UnityEngine.Vector2,System.Single,System.Single)">
             <summary>
             Returns a point on a circle with the given center and radius,
-            using Unity's circle coordinates (0° points up and increases clockwise)
+            using Unity's circle GridCoords (0° points up and increases clockwise)
             </summary>
         </member>
         <member name="M:DG.Tweening.Core.DOTweenUtils.Vector3AreApproximatelyEqual(UnityEngine.Vector3,UnityEngine.Vector3)">
@@ -488,7 +488,7 @@
             Must be called once, before the first ever DOTween call/reference,
             otherwise it will be called automatically and will use default options.
             Calling it a second time won't have any effect.
-            <para>You can chain <code>SetCapacity</code> to this method, to directly set the max starting size of Tweeners and Sequences:</para>
+            <para>You can chain <code>SetCapacity</code> to this method, to directly set the max starting data of Tweeners and Sequences:</para>
             <code>DOTween.Init(false, false, LogBehaviour.Default).SetCapacity(100, 20);</code>
             </summary>
             <param name="recycleAllByDefault">If TRUE all new tweens will be set for recycling, meaning that when killed,
@@ -529,7 +529,7 @@
             <summary>
             Kills all tweens, clears all cached tween pools and plugins and resets the max Tweeners/Sequences capacities to the default values.
             </summary>
-            <param name="destroy">If TRUE also destroys DOTween's gameObject and resets its initializiation, default settings and everything else
+            <param name="destroy">If TRUE also destroys DOTween's gameObject and resets its initializiation, default gridSettings and everything else
             (so that next time you use it it will need to be re-initialized)</param>
         </member>
         <member name="M:DG.Tweening.DOTween.ClearCachedTweens">
@@ -971,7 +971,7 @@
         <member name="M:DG.Tweening.DOVirtual.Float(System.Single,System.Single,System.Single,DG.Tweening.TweenCallback{System.Single})">
             <summary>
             Tweens a virtual float.
-            You can add regular settings to the generated tween,
+            You can add regular gridSettings to the generated tween,
             but do not use <code>SetUpdate</code> or you will overwrite the onVirtualUpdate parameter
             </summary>
             <param name="from">The value to start from</param>
@@ -982,7 +982,7 @@
         <member name="M:DG.Tweening.DOVirtual.Int(System.Int32,System.Int32,System.Single,DG.Tweening.TweenCallback{System.Int32})">
             <summary>
             Tweens a virtual int.
-            You can add regular settings to the generated tween,
+            You can add regular gridSettings to the generated tween,
             but do not use <code>SetUpdate</code> or you will overwrite the onVirtualUpdate parameter
             </summary>
             <param name="from">The value to start from</param>
@@ -993,7 +993,7 @@
         <member name="M:DG.Tweening.DOVirtual.Vector3(UnityEngine.Vector3,UnityEngine.Vector3,System.Single,DG.Tweening.TweenCallback{UnityEngine.Vector3})">
             <summary>
             Tweens a virtual Vector3.
-            You can add regular settings to the generated tween,
+            You can add regular gridSettings to the generated tween,
             but do not use <code>SetUpdate</code> or you will overwrite the onVirtualUpdate parameter
             </summary>
             <param name="from">The value to start from</param>
@@ -1004,7 +1004,7 @@
         <member name="M:DG.Tweening.DOVirtual.Color(UnityEngine.Color,UnityEngine.Color,System.Single,DG.Tweening.TweenCallback{UnityEngine.Color})">
             <summary>
             Tweens a virtual Color.
-            You can add regular settings to the generated tween,
+            You can add regular gridSettings to the generated tween,
             but do not use <code>SetUpdate</code> or you will overwrite the onVirtualUpdate parameter
             </summary>
             <param name="from">The value to start from</param>
@@ -1302,7 +1302,7 @@
             <summary>Flips the direction of this tween (backwards if it was going forward or viceversa)</summary>
         </member>
         <member name="M:DG.Tweening.TweenExtensions.ForceInit(DG.Tweening.Tween)">
-            <summary>Forces the tween to initialize its settings immediately</summary>
+            <summary>Forces the tween to initialize its gridSettings immediately</summary>
         </member>
         <member name="M:DG.Tweening.TweenExtensions.Goto(DG.Tweening.Tween,System.Single,System.Boolean)">
             <summary>Send the tween to the given position in time</summary>
@@ -1427,7 +1427,7 @@
         </member>
         <member name="M:DG.Tweening.TweenExtensions.Duration(DG.Tweening.Tween,System.Boolean)">
             <summary>Returns the duration of this tween (delays excluded).
-            <para>NOTE: when using settings like SpeedBased, the duration will be recalculated when the tween starts</para></summary>
+            <para>NOTE: when using gridSettings like SpeedBased, the duration will be recalculated when the tween starts</para></summary>
             <param name="includeLoops">If TRUE returns the full duration loops included,
              otherwise the duration of a single loop cycle</param>
         </member>
@@ -1862,17 +1862,17 @@
             <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
         </member>
         <member name="M:DG.Tweening.ShortcutExtensions.DOPunchScale(UnityEngine.Transform,UnityEngine.Vector3,System.Single,System.Int32,System.Single)">
-            <summary>Punches a Transform's localScale towards the given size and then back to the starting one
+            <summary>Punches a Transform's localScale towards the given data and then back to the starting one
             as if it was connected to the starting scale via an elastic.</summary>
             <param name="punch">The punch strength (added to the Transform's current scale)</param>
             <param name="duration">The duration of the tween</param>
             <param name="vibrato">Indicates how much will the punch vibrate</param>
-            <param name="elasticity">Represents how much (0 to 1) the vector will go beyond the starting size when bouncing backwards.
+            <param name="elasticity">Represents how much (0 to 1) the vector will go beyond the starting data when bouncing backwards.
             1 creates a full oscillation between the punch scale and the opposite scale,
             while 0 oscillates only between the punch scale and the start scale</param>
         </member>
         <member name="M:DG.Tweening.ShortcutExtensions.DOPunchRotation(UnityEngine.Transform,UnityEngine.Vector3,System.Single,System.Int32,System.Single)">
-            <summary>Punches a Transform's localRotation towards the given size and then back to the starting one
+            <summary>Punches a Transform's localRotation towards the given data and then back to the starting one
             as if it was connected to the starting rotation via an elastic.</summary>
             <param name="punch">The punch strength (added to the Transform's current rotation)</param>
             <param name="duration">The duration of the tween</param>
@@ -2266,8 +2266,8 @@
         </member>
         <member name="T:DG.Tweening.TweenParams">
             <summary>
-            This class serves only as a utility class to store tween settings to apply on multiple tweens.
-            It is in no way needed otherwise, since you can directly apply tween settings to a tween via chaining
+            This class serves only as a utility class to store tween gridSettings to apply on multiple tweens.
+            It is in no way needed otherwise, since you can directly apply tween gridSettings to a tween via chaining
             </summary>
         </member>
         <member name="F:DG.Tweening.TweenParams.Params">
@@ -2275,7 +2275,7 @@
             to avoid instantiating TweenParams objects</summary>
         </member>
         <member name="M:DG.Tweening.TweenParams.#ctor">
-            <summary>Creates a new TweenParams object, which you can use to store tween settings
+            <summary>Creates a new TweenParams object, which you can use to store tween gridSettings
             to pass to multiple tweens via <code>myTween.SetAs(myTweenParms)</code></summary>
         </member>
         <member name="M:DG.Tweening.TweenParams.Clear">
@@ -2546,7 +2546,7 @@
         </member>
         <member name="M:DG.Tweening.TweenSettingsExtensions.SetAs``1(``0,DG.Tweening.Tween)">
             <summary>Sets the parameters of the tween (id, ease, loops, delay, timeScale, callbacks, etc) as the parameters of the given one.
-            Doesn't copy specific SetOptions settings: those will need to be applied manually each time.
+            Doesn't copy specific SetOptions gridSettings: those will need to be applied manually each time.
             <para>Has no effect if the tween has already started.</para>
             NOTE: the tween's <code>target</code> will not be changed</summary>
             <param name="asTween">Tween from which to copy the parameters</param>

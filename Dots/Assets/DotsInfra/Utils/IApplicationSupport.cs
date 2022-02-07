@@ -9,6 +9,7 @@ namespace Dots.Infra.Utils
         string PersistentDataPath { get; }
         RuntimePlatform Platform { get; }
 
+        Vector3 GetScreenPointerWorldPosition();
         void OpenUrl(string url);
         void Quit();
     }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Dots.Infra.AC
 {
+    /// <summary>
+    /// Base class for all actors. Actors are units to control game scene objects from controllers.
+    /// Disposable and can be as an owner for a set of disposable instances
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public abstract class BaseActor : MonoBehaviour, IActor
     {
@@ -19,6 +23,8 @@ namespace Dots.Infra.AC
             get => gameObject.activeInHierarchy;
             set => gameObject.SetActive(value);
         }
+
+        public Vector3 WorldPosition => Transform.position;
 
         private void OnDestroy()
         {
