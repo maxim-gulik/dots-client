@@ -1,0 +1,14 @@
+{
+  "name": "com.dots.caframework",
+  "displayName": "DotsCAFramework",
+  "description": "",
+  "version": "1.0.0",
+  "author":{
+	"name": "maxim_hulik"
+  },
+  "dependencies": {
+    "com.cysharp.unitask": "2.2.5",
+    "com.mathijsbakker.extenject": "9.2.0",
+    "com.dots.extras": "1.0.0"
+  }
+}

@@ -1,14 +1,10 @@
 {
-    "name": "Dots-Game",
+    "name": "Dots-CAFramework",
     "rootNamespace": "",
     "references": [
-        "GUID:b20c303d249b5c24aae1137400ec455c",
-        "GUID:f9680922a46729843a330dbd1f62c019",
-        "GUID:0494eeed980abc647ada33f47a8f3394",
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:029c1c1b674aaae47a6841a0b89ad80e",
-        "GUID:3d7d3a34533f26041a7970994cc0a0cb"
+        "GUID:f9680922a46729843a330dbd1f62c019"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

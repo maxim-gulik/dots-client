@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dots.Infra.AC;
-using Dots.Infra.Utils;
-using DotsInfra.Pool;
+using Dots.AC;
+using Dots.Extras;
+using Dots.Pool;
 using UnityEngine;
 
 namespace DotsGame.Common

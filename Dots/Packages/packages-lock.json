@@ -7,6 +7,28 @@
       "dependencies": {},
       "hash": "50a67d8f419b6cea0398eff6c19cf0bbe11ed609"
     },
+    "com.dots.caframework": {
+      "version": "file:DotsControllerActor",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.cysharp.unitask": "2.2.5",
+        "com.mathijsbakker.extenject": "9.2.0",
+        "com.dots.extras": "1.0.0"
+      }
+    },
+    "com.dots.extras": {
+      "version": "file:DotsExtras",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.dots.objectpool": {
+      "version": "file:DotsPool",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.mathijsbakker.extenject": {
       "version": "file:Zenject",
       "depth": 0,

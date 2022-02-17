@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using Dots.Infra.AC;
+using Dots.AC;
 using DotsGame.EndlessMode;
 
 namespace DotsGame

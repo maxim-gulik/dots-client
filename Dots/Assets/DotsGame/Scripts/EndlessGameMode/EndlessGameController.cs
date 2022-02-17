@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Dots.Infra.AC;
+using Dots.AC;
 using DotsGame.Common;
 
 namespace DotsGame.EndlessMode

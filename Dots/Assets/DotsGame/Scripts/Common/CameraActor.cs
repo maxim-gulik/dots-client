@@ -1,4 +1,4 @@
-﻿using Dots.Infra.AC;
+﻿using Dots.AC;
 using UnityEngine;
 
 namespace DotsGame.Common

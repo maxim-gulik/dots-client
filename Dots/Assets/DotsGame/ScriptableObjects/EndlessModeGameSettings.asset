@@ -20,4 +20,4 @@ MonoBehaviour:
     _rows: 6
     _spacing: 0.25
     _contentSizeTemplate: {fileID: 21300000, guid: c7acf563a83881d4ead8b99d6fc2f8b3, type: 3}
-  _maxDotsColors: 5
+  _maxDotsColors: 2
