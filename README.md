@@ -1,7 +1,7 @@
 # About
 The clone of the classis Dots game inspired by https://www.dots.co/dots/
 
-The game is a sample demonstrates the view to a convenient solid framework for fast development of hypercasual/casual games.
+The game is a sample that demonstrates my view on the architecture of a framework that allows fast delivery of hyper-casual/casual games with minimal friction and a solid level of production quality.
 
 # Get Started
 1. Clone the repo
@@ -11,42 +11,36 @@ The game is a sample demonstrates the view to a convenient solid framework for f
 
 # The core philosophy of the framework
 
-Let's say that a hyper-casual game is a game with next characterystics:
-- one simple mechanic and uncomplicated gameplay
-- fast work is critical
-- without level selection/preloading/plot inserts
-- uses simple monetization (ads, IAP)
-- simple UI and
-- usually, do not require a dedicated server (means game logic)
+_Let's say that a hyper-casual game is a game with the next characteristics: one simple mechanic and uncomplicated gameplay; fast work is critical; without level selection/preloading/plot inserts; uses simple monetization (ads, IAP); simple UI; usually, do not require a dedicated server (means game logic)_
 
 Unity with a component-based system and a ton of 3-rd-party packages are kindly fit to make sipmle games from the box, but there are a couple reasons why it isn't a solid solution:
 - ugly API based on static classes, reflection, etc (bad maintainability and perfomanse)
-- component-based system is not intended to write consequent game logic and inject 3rd-party dependencies
+- component-based system is not intended to write consequent game logic and easy inject 3rd-party dependencies
 - hardness to change services without touching the business logic
 - hardness to write unit tests
 
-Need to mention, that the difference border between HyperCasual and Casual games is weak. Regarding this, game architecture must allow more than just make games with the simple mechanic to be posible resolve any business needs.
+Need to mention, that the difference border between HyperCasual and Casual games is weak. My experience has identified, that the business side sometimes does not feel this difference and requires more than just making games with the simple mechanic. Regarding this, better to design the architecture that is ready for it.
 
-**The goal of the framework is provide pretty simple, but scalable solution to solve all issues mentioned above and get developers the ability to concentrate only on game specific logic**
+**The philosophy of the framework is to provide a pretty simple, but scalable solution to solve all issues mentioned above and allow developers to concentrate only on game-specific logic**
 
 # About base architecture
 
 Game architecture based on a simple controller/actors system using Task-based async programming and di-container to inject game services.
 
-- Controller - the base unit of business logic of the game. Regarding this, can inject services and other infra instances. Can contain any amount of sub-controllers (compositor).
-- Actor - the base unit to provide the ability to control game scene objects
-- Service and Tools - independent infrastructure systems that provides some additional functionality to a game
-- Extras - infrastructure instances contain common simple semantically related logic that helps to share it between different game systems
-- Command - some logic with concrete responsibility is required to be shared between game controllers and other commands (can inject other instances)
+![image](https://user-images.githubusercontent.com/98963961/154853330-00230da1-15a2-4617-9059-f0eaead3f252.png)
 
-![image](https://user-images.githubusercontent.com/98963961/154686797-e6e6a6be-9d0f-4a21-9ff5-5672e861cd5a.png)
+- Controller - the base unit of business logic of the game. Сan inject services and other infra instances. Can contain any amount of sub-controllers (compositor).
+- Actor - the base unit to provide control of game scene objects
+- Service and Tools - independent infrastructure systems that provides some additional functionality to a game
+- Extras - infrastructure instances contain common simple semantically related logic
+- Command - some business logic is required to be shared between game controllers (and other commands also)
 
 # Services and components to make production level games
 
 **Base solution must contain**:
 - Controller/Actor framework
 - DI-Container
-- Tools for data transfer and events delivery between game instances (data bucket, message bus)
+- Tools for data transfer and events delivery between game controllers (data bucket, message bus)
 - UI system
 - Player data storage
 - Error handling API
@@ -55,16 +49,16 @@ Game architecture based on a simple controller/actors system using Task-based as
 - Input system
 - Audio system
 - Localisation system
-- Composit analytics service
+- Composite analytics service
 - Monetisation services (iaps system with verification on the server-side or ads - depends on concrete needs of the company)
-- Environments control (with the ability to hot-swap without rebuilding the solution)
+- Environments control (with the ability to hot-swap)
 - Build scripts
 - Game console
 - Flexible HTTP request convier (for infrastructure tools and other busines requirements)
 - Different extras that make the life of developers easier (extensions, utils, base classes, elementary components etc)
 - Convinient Unit-tests framework
 
-Others ones that are also reusable and helpfull, but can be implemented later in depends on requirements for concrite projects:
+Others ones that are also reusable and helpful, but can be implemented later in depends on requirements for concrete projects:
 - User login service
 - Remote asset system
 - Social networks (Facebook, WeChat, etc)
@@ -74,12 +68,11 @@ Others ones that are also reusable and helpfull, but can be implemented later in
 
 **Avoid** to include:
 - any game mechanic specific logic and components (here better to write separate cores, engines etc)
-- any visual elements (popups, screens etc)
-- any graphic assets, models etc
+- any specific graphic assets, 3d-models, sprites, UI-elements etc
 
 # How distribute the solution
 
-I would like to strive to package all independent systems (as controller/actor framework, internal services, etc) into UPM packages with separate .asmdefs implementation.
+I would like to pack all independent systems (as controller/actor framework, services, extras etc) into UPM packages with relevant .asmdefs.
 
 Pros:
 - allow to make custom setup in accordance with concriete project requirements
@@ -93,8 +86,8 @@ Cons:
 Like any new approach, this solution has an entry threshold. It requires a certain level of technical erudition from a developer (can take some additional time to understand the philosophy of the system and its components)
 
 # What to do with legacy solution
-Regarding the legacy games, the best strategy here is not refactor anything without any strong business needs.
-But, legacy tools (submodules, .unitypackages, upm packages, etc) can be very helpful and save a lot of development time. In case of necessity to use a legacy tool in a new game, it must be analyzed and refactored in accordance with standards of the new approach.
+Regarding the legacy tools (submodules, .unitypackages, upm packages, etc), the best strategy here is not to refactor anything without any strong business needs.
+But, in case of necessity to use a legacy tool in a new game, it must be at least analized and discussed with business side posibility to refactor it in accordance with standards of the new approach.
 
 # Project structure
 ![image](https://user-images.githubusercontent.com/98963961/154385556-9da7b44f-7fcd-41be-806e-dfd3d4b0aad4.png)
